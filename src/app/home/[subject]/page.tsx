@@ -60,7 +60,7 @@ const Page = () => {
             <h1 className='text-xl text-left mt-10 flex'>Tap to select categories<MoveRight className='mt-1 ml-1' strokeWidth={1.3}/></h1>
             <button className={`flex text-right mt-10 space-x-2 border p-1 rounded-lg ${allSelect? 'border bg-purple-300' : ''}`}  onClick={toggleSelectAll}>Select all  <CircleCheckBig className='ml-1'/> </button>
         </div>
-        <div className="grid grid-cols-4 md:grid-cols-4 w-[80%] ml-28">
+        <div className="grid grid-cols-1 md:grid-cols-4 w-[80%] ml-28">
         {categories?.map((category, index) => (
           <CategoryCard
             key={index}

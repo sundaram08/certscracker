@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import QuestionCard from '@/components/QuestionCard';
 import { Divide } from 'lucide-react';
+import { useSession, signOut } from 'next-auth/react';
+
 
 interface Option {
   text: string;
@@ -23,7 +25,7 @@ const TestPage = () => {
   const subject = pathname.split('/')[2];
   const searchParams = useSearchParams();
   const categories = searchParams.getAll('categories');
-
+  const { data: session } = useSession();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<{ [key: string]: string }>({});
@@ -40,7 +42,7 @@ const TestPage = () => {
             subject,
             categories: categories.join(','),
           },
-        });
+        }); 
         setQuestions(response.data);
       } catch (error) {
         console.error('Error fetching questions:', error);
@@ -69,7 +71,9 @@ const TestPage = () => {
     }));
   };
 
-  const handleFinish = () => {
+
+  
+  const handleFinish = async () => {
     let correctAnswers = 0;
     questions.forEach((question) => {
       const correctOption = question.options.find(option => option.isCorrect);
@@ -79,7 +83,31 @@ const TestPage = () => {
     });
     setScore(correctAnswers);
     setIsFinished(true);
+
+    // const submissionData = {
+    //   marks: correctAnswers,
+    //   subject: subject,
+    //   categories: categories,
+    //   username: session?.user?.name
+    // };
+    // console.log(submissionData);
+    
+    try {
+      const response = await axios.post('/api/submission',{
+        marks: correctAnswers,
+        subject: subject,
+        categories: categories,
+        username: session?.user?.name
+      });
+      console.log('Submission successful:', response.data);
+    } catch (error) {
+      console.error('Error submitting test:', error);
+    }
   };
+
+
+
+
   return (
     <div className="mt-16 container mx-auto px-4 flex flex-col justify-center items-center space-y-2">
       <div className='text-left mt-10'>
@@ -112,19 +140,37 @@ const TestPage = () => {
               Next
             </button>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg disabled:opacity-50"
               onClick={handleFinish}
+              disabled={Object.keys(selectedAnswers).length !== questions.length}
             >
               Finish
             </button>
           </div>
         </div>
       ) : (
-        <div className="text-center">
-          <h2 className="text-2xl">Your Score</h2>
-          <p className="text-lg">{score} / {questions.length}</p>
-          <p>{categories}</p>
-        </div>
+        <div className="text-center text-purple-600">
+        <h2 className="text-3xl font-semibold mb-4">Your Score</h2>
+        
+        <p className="text-2xl mb-2">{score} / {questions.length}</p>
+        
+        <p className="text-lg mb-4">Categories: {categories.join(", ")}</p>
+        
+        {score < 5 && (
+          <p className="text-lg text-red-500">You can do much better!</p>
+        )}
+        
+        {score >= 5 && score <= 8 && (
+          <p className="text-lg text-yellow-500">Good Score!</p>
+        )}
+        
+        {score >= 9 && (
+          <p className="text-lg text-green-500">Excellent Score!</p>
+        )}
+      </div>
+      
+
+      
       )}
     </div>
   );

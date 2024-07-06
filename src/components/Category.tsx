@@ -10,7 +10,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, isSelected, toggleSel
   const [selected, setSelected] = useState<any>(false);
   return (
     <div
-      className={`rounded-lg overflow-hidden border border-l-8 m-4 ${isSelected ? 'border border-purple-300' : ''}`}
+      className={`rounded-lg overflow-hidden border border-l-8 mb-2 md:m-4 ${isSelected ? 'border border-purple-300' : ''}`}
       onClick={toggleSelected}
     >
       <div className="relative">

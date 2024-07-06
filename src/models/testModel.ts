@@ -5,8 +5,9 @@ export interface ITest extends Document {
   _id: Types.ObjectId;
   subject: string;
   categories: string[];
-  marks: string;
+  marks: number;
   username: string;
+  createdAt: Date;
 }
 
 
@@ -20,14 +21,15 @@ const testSchema: Schema<ITest> = new Schema({
     required: [true, "Please provide at least one category"],
   },
   marks: {
-    type: String,
+    type: Number,
     required: [true, "Please provide marks"],
   },
   username: {
     type: String,
     required: [true, "Please provide a userID"],
-  },
-});
+  }},
+  {timestamps: { createdAt: true, updatedAt: false }}
+);
 
 const Test: Model<ITest> =
   mongoose.models?.Test || mongoose.model<ITest>("Test", testSchema);

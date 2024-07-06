@@ -1,4 +1,3 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { NextResponse, NextRequest } from 'next/server';
 import dbConnect from '@/lib/dbConnect'
 import Subject, { ISubject } from '@/models/subjectModel';
@@ -15,5 +14,4 @@ export async function GET(req:NextRequest){
     } catch (error:any) {
         return  NextResponse.json({ success: false, message: error.message });
     }
-  }
-  
+}

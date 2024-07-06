@@ -6,6 +6,7 @@ import "./globals.css";
 import { usePathname } from 'next/navigation';
 import path from "path";
 import Navbar from "@/components/Navbar";
+import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SessionProvider>
       <div className="flex flex-col h-full">
           <div className="fixed">{showLayout && <Navbar/>}</div>
           <div className="flex-1 h-full overflow-y-auto">
@@ -26,6 +28,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children }) => {
             {children}
           </div>
         </div>
+        </SessionProvider>
         </body>
     </html>
   );
