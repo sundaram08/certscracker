@@ -14,7 +14,7 @@ export const connectDB = async () => {
     const { connection } = await mongoose.connect(
       process.env.MONGODB_URI as string,
       {
-        dbName: "CertsCracker",
+        dbName: "test",
       }
     );
     console.log("Connected to DB", connection.host);

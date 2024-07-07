@@ -7,7 +7,7 @@ export interface IUser extends Document {
     password: string;
     name: string,
     profilePic: string,
-    testAttempted: Types.ObjectId[],
+    activeDays: string[];
 }
 
 const userSchema: Schema = new Schema({
@@ -31,12 +31,11 @@ const userSchema: Schema = new Schema({
     profilePic: {
         type: String,
     },
-    testsAttempted: [
+    activeDays: [
       {
-        type: Schema.Types.ObjectId,
-        ref: "Test",
+        type: String,
       },
-    ]
+    ],
   });
   
   const User: Model<IUser> =

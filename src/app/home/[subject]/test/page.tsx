@@ -43,7 +43,12 @@ const TestPage = () => {
             categories: categories.join(','),
           },
         }); 
-        setQuestions(response.data);
+        let fetchedQuestions = response.data;
+
+
+        fetchedQuestions = fetchedQuestions.sort(() => Math.random() - 0.5).slice(0, 10);
+        
+        setQuestions(fetchedQuestions);
       } catch (error) {
         console.error('Error fetching questions:', error);
       }

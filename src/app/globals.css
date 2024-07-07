@@ -66,6 +66,10 @@
     }
   }
 
+  .highlight{
+    background-color: purple
+  }
+
   @layer base {
     * {
       @apply border-border;
