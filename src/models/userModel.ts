@@ -7,6 +7,7 @@ export interface IUser extends Document {
     password: string;
     name: string,
     profilePic: string,
+    totalScore: number,
     activeDays: string[];
 }
 
@@ -31,11 +32,14 @@ const userSchema: Schema = new Schema({
     profilePic: {
         type: String,
     },
+    totalScore:{
+      type: Number
+    },
     activeDays: [
       {
         type: String,
       },
-    ],
+    ]
   });
   
   const User: Model<IUser> =

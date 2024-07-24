@@ -4,7 +4,10 @@ const nextConfig = {
         domains: [
          "cdn.pixabay.com",
          "s3-alpha-sig.figma.com",
-         "www.freepik.com"
+         "www.freepik.com",
+         "getwallpapers.com",
+         "assets-global.website-files.com",
+         "enterprisersproject.com"
         ],
       },
 };

@@ -39,11 +39,11 @@ const ActivityCalendar: React.FC<ActivityCalendarProps> = ({ username }) => {
   return (
     <div className="flex justify-center items-center">
       <div className="p-6 rounded-lg shadow-lg bg-transparent">
-        <h1 className="text-2xl font-bold mb-4">Activity Calendar</h1>
+        <h1 className="text-xl font-bold mb-4">Activity Calendar</h1>
         <Calendar
         //   tileContent={tileContent}
         tileClassName={tileClassName}
-          className="w-full"
+          className=""
         />
       </div>
     </div>

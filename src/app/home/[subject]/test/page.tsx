@@ -78,37 +78,42 @@ const TestPage = () => {
 
 
   
-  const handleFinish = async () => {
-    let correctAnswers = 0;
-    questions.forEach((question) => {
-      const correctOption = question.options.find(option => option.isCorrect);
-      if (correctOption && selectedAnswers[question._id] === correctOption.text) {
-        correctAnswers += 1;
-      }
-    });
-    setScore(correctAnswers);
-    setIsFinished(true);
+      const handleFinish = async () => {
+        let correctAnswers = 0;
+        questions.forEach((question) => {
+          const correctOption = question.options.find(option => option.isCorrect);
+          if (correctOption && selectedAnswers[question._id] === correctOption.text) {
+            correctAnswers += 1;
+          }
+        });
+        setScore(correctAnswers);
+        setIsFinished(true);
 
-    // const submissionData = {
-    //   marks: correctAnswers,
-    //   subject: subject,
-    //   categories: categories,
-    //   username: session?.user?.name
-    // };
-    // console.log(submissionData);
-    
-    try {
-      const response = await axios.post('/api/submission',{
-        marks: correctAnswers,
-        subject: subject,
-        categories: categories,
-        username: session?.user?.name
-      });
-      console.log('Submission successful:', response.data);
-    } catch (error) {
-      console.error('Error submitting test:', error);
-    }
-  };
+        
+        try {
+          const response = await axios.post('/api/submission',{
+            marks: correctAnswers,
+            subject: subject,
+            categories: categories,
+            username: session?.user?.name
+          });
+          console.log('Submission successful:', response.data);
+        } catch (error) {
+          console.error('Error submitting test:', error);
+        }
+
+        try {
+          const response = await axios.post('/api/score',{
+            marks: correctAnswers,
+            username: session?.user?.name
+          });
+          console.log('Submission successful:', response.data);
+        } catch (error) {
+          console.error('Error submitting test:', error);
+        }
+
+      };
+
 
 
 

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import Submission from '@/components/profile/Submission';
 import ActivityCalendar from '@/components/profile/ActivityCalendar';
+import AnalyticsCard from '@/components/profile/AnalyticsCard';
 
 
 
@@ -52,7 +53,7 @@ const Page = () => {
         </div>
         <div className='w-[75%] h-[calc(100vh-4rem)] flex flex-col'>
         <div className='h-40 border border-r-8 flex-shrink-0'>
-
+            <AnalyticsCard username={`${username}`}/>
         </div>
         {/* <div className='h-48 border border-r-8 flex-shrink-0 overflow-hidden'>
           <ActivityCalendar username={`${username}`} />
